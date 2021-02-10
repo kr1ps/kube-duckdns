@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: duckdns-deploy
+  labels:
+    name: duckdns-deploy
+    app: duckdns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: duckdns-pod
+      app: duckdns
+
+  template:
+    metadata:
+      name: duckdns-pod
+      labels:
+        name: duckdns-pod
+        app: duckdns
+    spec:
+      containers:
+        - name: duckdns
+          image: linuxserver/duckdns
+          env:
+            - name: SUBDOMAINS
+              value: "kr1ps.duckdns.org"
+            - name: TOKEN
+              value: "ec979d9a-d0a7-48ba-be3c-f74802e2ccbb"
+            - name: TZ
+              value: "America/Santo_Domingo"
+            - name: LOG_FILE
+              value: "false"
